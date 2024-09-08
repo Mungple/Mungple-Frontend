@@ -19,15 +19,24 @@ export default function AuthHomeScreen() {
         />
       </View>
 
-      <View>
+      <View style={styles.buttonContainer}>
         <CustomButton
           label="카카오 로그인하기"
           // onPress={() => navigation.navigate(authNavigations.KAKAO)}
           style={styles.kakaoButtonContainer}
-          textStyle={styles.kakaoButtonText}
-          // icon={
-          //   <Ionicons name={'chatbubble-sharp'} color={'#181500'} size={16} />
-          // }
+          textStyle={styles.buttonText}
+        />
+        <CustomButton
+          label="네이버 로그인하기"
+          // onPress={() => navigation.navigate(authNavigations.NAVER)}
+          style={styles.naverButtonContainer}
+          textStyle={styles.buttonText}
+        />
+        <CustomButton
+          label="구글 로그인하기"
+          // onPress={() => navigation.navigate(authNavigations.GOOGLE)}
+          style={styles.googleButtonContainer}
+          textStyle={styles.buttonText}
         />
       </View>
     </SafeAreaView>
@@ -49,10 +58,24 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
   },
+  buttonContainer: {
+    flex: 1,
+    alignItems: 'center',
+    gap: 10,
+  },
+  buttonText: {
+    color: '#000000',
+  },
   kakaoButtonContainer: {
     backgroundColor: '#FEE503',
   },
-  kakaoButtonText: {
-    color: '#000000',
+  naverButtonContainer: {
+    backgroundColor: '#19CE60',
+  },
+  googleButtonContainer: {
+    backgroundColor: '#FFFFFF',
+    borderStyle: 'solid',
+    borderWidth: 1,
+    borderColor: '#000000',
   },
 });

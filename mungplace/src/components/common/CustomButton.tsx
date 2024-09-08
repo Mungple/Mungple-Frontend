@@ -4,6 +4,7 @@ import {
   View,
   Pressable,
   StyleProp,
+  ViewStyle,
   TextStyle,
   Dimensions,
   StyleSheet,
@@ -14,9 +15,12 @@ import {colors} from '@/constants';
 
 interface CustomButtonProps extends PressableProps {
   label: string;
-  variant?: 'filled' | 'outlined';
-  size?: 'large' | 'medium';
   inValid?: boolean;
+
+  size?: 'large' | 'medium';
+  variant?: 'filled' | 'outlined';
+
+  style?: StyleProp<ViewStyle>;
   textStyle?: StyleProp<TextStyle>;
 }
 
@@ -24,9 +28,12 @@ const deviceHeight = Dimensions.get('screen').height;
 
 function CustomButton({
   label,
-  variant = 'filled',
-  size = 'large',
   inValid = false,
+
+  size = 'large',
+  variant = 'filled',
+
+  style = null,
   textStyle = null,
   ...props
 }: CustomButtonProps) {
@@ -37,10 +44,13 @@ function CustomButton({
         styles.container,
         pressed ? styles[`${variant}Pressed`] : styles[variant],
         inValid && styles.inValid,
+        style,
       ]}
       {...props}>
       <View style={styles[size]}>
-        <Text style={[styles.text, styles[`${variant}Text`], textStyle]}>{label}</Text>
+        <Text style={[styles.text, styles[`${variant}Text`], textStyle]}>
+          {label}
+        </Text>
       </View>
     </Pressable>
   );
