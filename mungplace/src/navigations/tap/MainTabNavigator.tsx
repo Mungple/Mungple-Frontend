@@ -12,7 +12,14 @@ const Tab = createBottomTabNavigator();
 
 export default function MainTabNavigator() {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator
+      screenOptions={{
+        tabBarLabelStyle: {
+          fontSize: 18,
+        },
+        headerShown: false,
+      }}
+    >
       <Tab.Screen
         name={mainNavigations.HOME}
         component={HomeScreen}
