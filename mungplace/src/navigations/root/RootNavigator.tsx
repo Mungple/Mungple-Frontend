@@ -1,9 +1,14 @@
 import React from 'react';
-import {View} from 'react-native';
 import MainTabNavigator from '@/navigations/tap/MainTabNavigator';
+import {NavigationContainer} from '@react-navigation/native';
+import LoginScreen from '@/screens/auth/LoginScreen';
 
 export default function RootNavigator() {
+  const isLogin = false;
+
   return (
-      <MainTabNavigator />
+    <NavigationContainer>
+      {isLogin ? <MainTabNavigator /> : <LoginScreen />}
+    </NavigationContainer>
   );
 }

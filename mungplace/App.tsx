@@ -10,9 +10,7 @@ function App(): React.JSX.Element {
   return (
     <QueryClientProvider client={queryClient}>
       <StatusBar />
-      <NavigationContainer>
-        <RootNavigator />
-      </NavigationContainer>
+      <RootNavigator />
     </QueryClientProvider>
   );
 }
