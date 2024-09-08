@@ -1,12 +1,25 @@
 module.exports = {
   presets: ['module:@react-native/babel-preset', '@babel/preset-typescript'],
   plugins: [
-    ["module-resolver", {
-      "@": ["./src"],
-      "alias": {
-        "test": "./test",
-        "underscore": "lodash"
-      }
-    }]
+    [
+      'module-resolver',
+      {
+        root: ['./src'],
+        extensions: [
+          '.ios.ts',
+          '.android.ts',
+          '.ts',
+          '.ios.tsx',
+          '.android.tsx',
+          '.tsx',
+          '.jsx',
+          '.js',
+          '.json',
+        ],
+        alias: {
+          '@': './src',
+        },
+      },
+    ],
   ],
 };
