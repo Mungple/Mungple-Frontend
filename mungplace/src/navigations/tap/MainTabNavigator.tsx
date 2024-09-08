@@ -1,4 +1,5 @@
 import React from 'react';
+import {mainNavigations} from '@/constants';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
 import MapScreen from '@/screens/map/MapScreen';
@@ -12,11 +13,41 @@ const Tab = createBottomTabNavigator();
 export default function MainTabNavigator() {
   return (
     <Tab.Navigator>
-      <Tab.Screen name="홈" component={HomeScreen} />
-      <Tab.Screen name="지도" component={MapScreen} />
-      <Tab.Screen name="기록" component={RecordScreen} />
-      <Tab.Screen name="랭킹" component={RankingScreen} />
-      <Tab.Screen name="내정보" component={MyPageScreen} />
+      <Tab.Screen
+        name={mainNavigations.HOME}
+        component={HomeScreen}
+        options={{
+          title: '홈',
+        }}
+      />
+      <Tab.Screen
+        name={mainNavigations.MAP}
+        component={MapScreen}
+        options={{
+          title: '지도',
+        }}
+      />
+      <Tab.Screen
+        name={mainNavigations.RECORD}
+        component={RecordScreen}
+        options={{
+          title: '기록',
+        }}
+      />
+      <Tab.Screen
+        name={mainNavigations.RANKING}
+        component={RankingScreen}
+        options={{
+          title: '랭킹',
+        }}
+      />
+      <Tab.Screen
+        name={mainNavigations.MYPAGE}
+        component={MyPageScreen}
+        options={{
+          title: '내정보',
+        }}
+      />
     </Tab.Navigator>
   );
 }

@@ -1,14 +1,16 @@
-import {
-  SafeAreaView,
-  StyleSheet,
-  Dimensions,
-  Image,
-  View,
-} from 'react-native';
 import React from 'react';
+import {SafeAreaView, StyleSheet, Dimensions, Image, View} from 'react-native';
 import CustomButton from '@/components/common/CustomButton';
+import {authNavigations} from '@/constants';
+import {AuthStackParamList} from '@/navigations/stack/AuthStackNavigator';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
-export default function AuthHomeScreen() {
+type AuthHomeScreenProps = NativeStackScreenProps<
+  AuthStackParamList,
+  typeof authNavigations.AUTH_HOME
+>;
+
+export default function AuthHomeScreen({navigation}: AuthHomeScreenProps) {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.imageContainer}>
@@ -22,19 +24,19 @@ export default function AuthHomeScreen() {
       <View style={styles.buttonContainer}>
         <CustomButton
           label="카카오 로그인하기"
-          // onPress={() => navigation.navigate(authNavigations.KAKAO)}
+          onPress={() => navigation.navigate(authNavigations.KAKAO)}
           style={styles.kakaoButtonContainer}
           textStyle={styles.buttonText}
         />
         <CustomButton
           label="네이버 로그인하기"
-          // onPress={() => navigation.navigate(authNavigations.NAVER)}
+          onPress={() => navigation.navigate(authNavigations.NAVER)}
           style={styles.naverButtonContainer}
           textStyle={styles.buttonText}
         />
         <CustomButton
           label="구글 로그인하기"
-          // onPress={() => navigation.navigate(authNavigations.GOOGLE)}
+          onPress={() => navigation.navigate(authNavigations.GOOGLE)}
           style={styles.googleButtonContainer}
           textStyle={styles.buttonText}
         />
