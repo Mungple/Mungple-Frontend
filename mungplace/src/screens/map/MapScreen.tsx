@@ -9,4 +9,3 @@ export default function MapScreen() {
   )
 }
 
-const styles = StyleSheet.create({})

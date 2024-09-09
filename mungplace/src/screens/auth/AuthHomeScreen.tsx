@@ -1,16 +1,26 @@
 import React, {useEffect, useState} from 'react';
-import {SafeAreaView, StyleSheet, Dimensions, Image, View} from 'react-native';
+import {
+  SafeAreaView,
+  StyleSheet,
+  Dimensions,
+  Image,
+  View,
+  Text,
+} from 'react-native';
 
-import { NAVER_CUSTOMER_KEY, NAVER_CUSTOMER_SECRET } from '@env';
 import CustomButton from '@/components/common/CustomButton';
 import NaverLogin from '@/api/naverLogin';
 import {NaverLoginResponse} from '@/api';
+import NativeKakaoLogins, {
+  KakaoOAuthToken,
+  KakaoProfile,
+} from '@/api/kakaoLogin';
 
-export default function AuthHomeScreen() {
-  const [loginResponse, setLoginResponse] = useState<NaverLoginResponse | null>(
-    null,
-  );
-  
+const AuthHomeScreen = () => {
+  const [naverLoginResponse, setNaverLoginResponse] = useState<NaverLoginResponse | null>(null);
+  const [kakaoLoginResponse, setKakaoLoginResponse] = useState<KakaoOAuthToken | null>(null);
+  const [kakaoProfile, setKakaoProfile] = useState<KakaoProfile | null>(null);
+
   // SDK 초기화
   useEffect(() => {
     NaverLogin.initialize({
@@ -19,14 +29,28 @@ export default function AuthHomeScreen() {
       consumerSecret: `${process.env.NAVER_CUSTOMER_SECRET}`,
     });
   }, []);
-  
-  // 로그인 버튼 클릭 시 호출되는 함수
+
+  // 네이버 로그인 함수
   const handleNaverLogin = async () => {
     try {
       const response = await NaverLogin.login();
-      setLoginResponse(response);
+      setNaverLoginResponse(response);
+      console.log(response)
     } catch (err) {
       console.log(err);
+    }
+  };
+
+  // 카카오 로그인 함수
+  const handleKakaoLogin = async () => {
+    try {
+      const token = await NativeKakaoLogins.loginWithKakaoAccount();
+      setKakaoLoginResponse(token);
+
+      const profile = await NativeKakaoLogins.getProfile();
+      setKakaoProfile(profile);
+    } catch (err) {
+      console.log('Kakao login error:', err);
     }
   };
 
@@ -43,7 +67,7 @@ export default function AuthHomeScreen() {
       <View style={styles.buttonContainer}>
         <CustomButton
           label="카카오 로그인하기"
-          // onPress={}
+          onPress={handleKakaoLogin}
           style={styles.kakaoButtonContainer}
           textStyle={styles.buttonText}
         />
@@ -59,6 +83,18 @@ export default function AuthHomeScreen() {
           style={styles.googleButtonContainer}
           textStyle={styles.buttonText}
         />
+        {/* 네이버 로그인 결과 표시 */}
+        {naverLoginResponse && (
+          <View>
+            <Text>
+              네이버 로그인 성공:{' '}
+              {naverLoginResponse.successResponse?.accessToken}
+            </Text>
+            <Text>
+              {naverLoginResponse.successResponse?.accessToken}
+            </Text>
+          </View>
+        )}
       </View>
     </SafeAreaView>
   );
@@ -100,3 +136,5 @@ const styles = StyleSheet.create({
     borderColor: '#000000',
   },
 });
+
+export default AuthHomeScreen
