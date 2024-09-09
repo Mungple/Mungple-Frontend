@@ -1,16 +1,35 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {SafeAreaView, StyleSheet, Dimensions, Image, View} from 'react-native';
+
+import { NAVER_CUSTOMER_KEY, NAVER_CUSTOMER_SECRET } from '@env';
 import CustomButton from '@/components/common/CustomButton';
-import {authNavigations} from '@/constants';
-import {AuthStackParamList} from '@/navigations/stack/AuthStackNavigator';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import NaverLogin from '@/api/naverLogin';
+import {NaverLoginResponse} from '@/api';
 
-type AuthHomeScreenProps = NativeStackScreenProps<
-  AuthStackParamList,
-  typeof authNavigations.AUTH_HOME
->;
+export default function AuthHomeScreen() {
+  const [loginResponse, setLoginResponse] = useState<NaverLoginResponse | null>(
+    null,
+  );
+  
+  // SDK 초기화
+  useEffect(() => {
+    NaverLogin.initialize({
+      appName: 'com.mungplace',
+      consumerKey: `${process.env.NAVER_CUSTOMER_KEY}`,
+      consumerSecret: `${process.env.NAVER_CUSTOMER_SECRET}`,
+    });
+  }, []);
+  
+  // 로그인 버튼 클릭 시 호출되는 함수
+  const handleNaverLogin = async () => {
+    try {
+      const response = await NaverLogin.login();
+      setLoginResponse(response);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
-export default function AuthHomeScreen({navigation}: AuthHomeScreenProps) {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.imageContainer}>
@@ -24,19 +43,19 @@ export default function AuthHomeScreen({navigation}: AuthHomeScreenProps) {
       <View style={styles.buttonContainer}>
         <CustomButton
           label="카카오 로그인하기"
-          onPress={() => navigation.navigate(authNavigations.KAKAO)}
+          // onPress={}
           style={styles.kakaoButtonContainer}
           textStyle={styles.buttonText}
         />
         <CustomButton
           label="네이버 로그인하기"
-          onPress={() => navigation.navigate(authNavigations.NAVER)}
+          onPress={handleNaverLogin}
           style={styles.naverButtonContainer}
           textStyle={styles.buttonText}
         />
         <CustomButton
           label="구글 로그인하기"
-          onPress={() => navigation.navigate(authNavigations.GOOGLE)}
+          // onPress={()}
           style={styles.googleButtonContainer}
           textStyle={styles.buttonText}
         />

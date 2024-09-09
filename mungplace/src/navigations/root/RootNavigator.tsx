@@ -1,14 +1,14 @@
 import React from 'react';
-import AuthStackNavigator from '../stack/AuthStackNavigator';
 import MainTabNavigator from '@/navigations/tap/MainTabNavigator';
 import {NavigationContainer} from '@react-navigation/native';
+import AuthHomeScreen from '@/screens/auth/AuthHomeScreen';
 
 export default function RootNavigator() {
   const isLogin = false;
 
   return (
     <NavigationContainer>
-      {isLogin ? <MainTabNavigator /> : <AuthStackNavigator />}
+      {isLogin ? <MainTabNavigator /> : <AuthHomeScreen />}
     </NavigationContainer>
   );
 }
