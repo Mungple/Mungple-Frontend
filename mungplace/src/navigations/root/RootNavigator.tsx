@@ -4,7 +4,7 @@ import MainTabNavigator from '@/navigations/tap/MainTabNavigator';
 import {NavigationContainer} from '@react-navigation/native';
 
 export default function RootNavigator() {
-  const isLogin = true;
+  const isLogin = false;
 
   return (
     <NavigationContainer>
