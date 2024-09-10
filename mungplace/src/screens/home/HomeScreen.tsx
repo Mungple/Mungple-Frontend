@@ -9,7 +9,6 @@ import { MapStackParamList } from '@/navigations/stack/WalkingStackNavigator';
 
 type Navigation = NativeStackNavigationProp<MapStackParamList>;
 
-
 const HomeScreen: React.FC = () => {
   const setWalkingStart = useAppStore(state => state.setWalkingStart);
   const navigation = useNavigation<Navigation>();

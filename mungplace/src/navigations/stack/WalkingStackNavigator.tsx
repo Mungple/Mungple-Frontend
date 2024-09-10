@@ -19,7 +19,7 @@ const MapStackNavigator: React.FC = () => {
         headerTitle: ' ',
         headerShown: false,
       }}>
-      <Stack.Screen name={walkingNavigations.HOME} component={HomeScreen} />
+      <Stack.Screen name={walkingNavigations.HOME} component={HomeScreen}/>
       <Stack.Screen name={walkingNavigations.WALKING} component={WalkingScreen}/>
     </Stack.Navigator>
   );

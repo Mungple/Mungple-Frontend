@@ -1,9 +1,17 @@
-import React, {useEffect, useState} from 'react';
-import {View, Button, StyleSheet} from 'react-native';
-import MapView, {Heatmap, Marker, PROVIDER_GOOGLE} from 'react-native-maps';
+import React, { useEffect, useState } from 'react';
+import {
+  View,
+  Button,
+  StyleSheet,
+  Modal,
+  Text,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+} from 'react-native';
+import MapView, { Heatmap, Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import Geolocation from '@react-native-community/geolocation';
-import {useMapStore} from '../../state/useMapStore'; // Zustand 상태 관리
-import MarkerForm from '../../components/Marker/MarkerForm'; // MarkerForm 임포트
+import { useMapStore } from '@/state/useMapStore'; // Zustand 상태 관리
+import MarkerForm from '@/components/Marker/MarkerForm'; // MarkerForm 임포트
 
 const MapScreen = () => {
   const {
@@ -28,20 +36,25 @@ const MapScreen = () => {
     longitude: number;
   } | null>(null);
   const [isFormVisible, setIsFormVisible] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   // 사용자 위치를 가져오는 useEffect
   useEffect(() => {
     Geolocation.getCurrentPosition(
       position => {
-        const {latitude, longitude} = position.coords;
-        setUserLocation({latitude, longitude});
+        const { latitude, longitude } = position.coords;
+        setUserLocation({ latitude, longitude });
         fetchPersonalBlueZone(latitude, longitude);
         fetchGlobalBlueZone(latitude, longitude);
       },
       error => console.log(error),
-      {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
+      { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
     );
   }, []);
+
+  const toggleModal = () => {
+    setIsModalVisible(!isModalVisible);
+  };
 
   return (
     <View style={styles.container}>
@@ -50,11 +63,12 @@ const MapScreen = () => {
         provider={PROVIDER_GOOGLE}
         showsUserLocation
         initialRegion={{
-          latitude: userLocation?.latitude || 35.096406,  // 기본 값
+          latitude: userLocation?.latitude || 35.096406, // 기본 값
           longitude: userLocation?.longitude || 128.853919, // 기본 값
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421,
-        }}>
+        }}
+      >
         {/* 개인 블루존 히트맵 */}
         {showPersonalBlueZone && (
           <Heatmap
@@ -112,6 +126,30 @@ const MapScreen = () => {
         <Button title="Add Marker" onPress={() => setIsFormVisible(true)} />
       </View>
 
+      {/* 햄버거 버튼 */}
+      <TouchableOpacity onPress={toggleModal} style={styles.hamburgerButton}>
+        <Text style={styles.hamburgerText}>&#9776;</Text>
+      </TouchableOpacity>
+
+      {/* 모달 */}
+      <Modal
+        visible={isModalVisible}
+        transparent={true}
+        animationType="slide"
+        onRequestClose={toggleModal} // Android의 뒤로가기 버튼에 대한 동작
+      >
+        <TouchableWithoutFeedback onPress={toggleModal}>
+          <View style={styles.modal}>
+            <TouchableWithoutFeedback>
+              <View style={styles.modalContent}>
+                <Button title="Close Modal" onPress={toggleModal} />
+                <Text>This is the modal content!</Text>
+              </View>
+            </TouchableWithoutFeedback>
+          </View>
+        </TouchableWithoutFeedback>
+      </Modal>
+
       {/* 마커 추가 폼 */}
       {userLocation && (
         <MarkerForm
@@ -139,6 +177,27 @@ const styles = StyleSheet.create({
     right: 20,
     flexDirection: 'row',
     justifyContent: 'space-between',
+  },
+  hamburgerButton: {
+    position: 'absolute',
+    top: 20,
+    right: 20,
+    padding: 10,
+  },
+  hamburgerText: {
+    fontSize: 40,
+    fontWeight: '900',
+  },
+  modal: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  modalContent: {
+    backgroundColor: '#fff',
+    padding: 20,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
   },
 });
 
