@@ -1,32 +1,45 @@
-import React, { useEffect, useState } from 'react';
-import { View, Button, StyleSheet } from 'react-native';
-import MapView, { Heatmap, Marker } from 'react-native-maps';
+import React, {useEffect, useState} from 'react';
+import {View, Button, StyleSheet} from 'react-native';
+import MapView, {Heatmap, Marker, PROVIDER_GOOGLE} from 'react-native-maps';
 import Geolocation from '@react-native-community/geolocation';
-import { useMapStore } from '../../state/useMapStore'; // Zustand 상태 관리
+import {useMapStore} from '../../state/useMapStore'; // Zustand 상태 관리
 import MarkerForm from '../../components/Marker/MarkerForm'; // MarkerForm 임포트
 
 const MapScreen = () => {
-  const { 
-    showPersonalBlueZone, showGlobalBlueZone, showRedZone, showMungPlace, 
-    togglePersonalBlueZone, toggleGlobalBlueZone, toggleRedZone, toggleMungPlace,
-    fetchPersonalBlueZone, fetchGlobalBlueZone, fetchRedZone, fetchMungPlace,
-    personalBlueZones, globalBlueZones, redZones, mungPlaces, addMarker
+  const {
+    showPersonalBlueZone,
+    showGlobalBlueZone,
+    showRedZone,
+    showMungPlace,
+    togglePersonalBlueZone,
+    toggleGlobalBlueZone,
+    toggleRedZone,
+    toggleMungPlace,
+    fetchPersonalBlueZone,
+    fetchGlobalBlueZone,
+    personalBlueZones,
+    globalBlueZones,
+    redZones,
+    mungPlaces,
   } = useMapStore();
-  
-  const [userLocation, setUserLocation] = useState<{ latitude: number; longitude: number } | null>(null);
+
+  const [userLocation, setUserLocation] = useState<{
+    latitude: number;
+    longitude: number;
+  } | null>(null);
   const [isFormVisible, setIsFormVisible] = useState(false);
 
   // 사용자 위치를 가져오는 useEffect
   useEffect(() => {
     Geolocation.getCurrentPosition(
       position => {
-        const { latitude, longitude } = position.coords;
-        setUserLocation({ latitude, longitude });
+        const {latitude, longitude} = position.coords;
+        setUserLocation({latitude, longitude});
         fetchPersonalBlueZone(latitude, longitude);
         fetchGlobalBlueZone(latitude, longitude);
       },
       error => console.log(error),
-      { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
+      {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
     );
   }, []);
 
@@ -34,13 +47,14 @@ const MapScreen = () => {
     <View style={styles.container}>
       <MapView
         style={styles.map}
+        provider={PROVIDER_GOOGLE}
+        showsUserLocation
         initialRegion={{
           latitude: userLocation?.latitude || 35.096406,  // 기본 값
-          longitude: userLocation?.longitude || 128.853919,  // 기본 값
+          longitude: userLocation?.longitude || 128.853919, // 기본 값
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421,
-        }}
-      >
+        }}>
         {/* 개인 블루존 히트맵 */}
         {showPersonalBlueZone && (
           <Heatmap
@@ -64,7 +78,7 @@ const MapScreen = () => {
         )}
 
         {/* 레드존 */}
-        {showRedZone && (
+        {showRedZone &&
           redZones.map((zone, index) => (
             <Marker
               key={index}
@@ -74,11 +88,10 @@ const MapScreen = () => {
               }}
               title="Red Zone"
             />
-          ))
-        )}
+          ))}
 
         {/* 멍플레이스 */}
-        {showMungPlace && (
+        {showMungPlace &&
           mungPlaces.map((place, index) => (
             <Marker
               key={index}
@@ -88,8 +101,7 @@ const MapScreen = () => {
               }}
               title="Mung Place"
             />
-          ))
-        )}
+          ))}
       </MapView>
 
       <View style={styles.buttonContainer}>
@@ -97,10 +109,7 @@ const MapScreen = () => {
         <Button title={`Global BlueZone`} onPress={toggleGlobalBlueZone} />
         <Button title={`RedZone`} onPress={toggleRedZone} />
         <Button title={`MungPlace`} onPress={toggleMungPlace} />
-        <Button
-          title="Add Marker"
-          onPress={() => setIsFormVisible(true)}
-        />
+        <Button title="Add Marker" onPress={() => setIsFormVisible(true)} />
       </View>
 
       {/* 마커 추가 폼 */}
