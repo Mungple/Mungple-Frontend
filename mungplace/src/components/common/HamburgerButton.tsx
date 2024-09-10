@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 
 const HamburgerButton: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);

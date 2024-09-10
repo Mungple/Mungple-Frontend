@@ -16,7 +16,7 @@ export type AuthStackParamList = {
 
 const Stack = createNativeStackNavigator<AuthStackParamList>();
 
-function AuthStackNavigator() {
+const AuthStackNavigator: React.FC = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen

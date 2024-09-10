@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Button,
@@ -8,12 +8,12 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
 } from 'react-native';
-import MapView, { Heatmap, Marker, PROVIDER_GOOGLE } from 'react-native-maps';
+import MapView, {Heatmap, Marker, PROVIDER_GOOGLE} from 'react-native-maps';
 import Geolocation from '@react-native-community/geolocation';
-import { useMapStore } from '@/state/useMapStore'; // Zustand 상태 관리
+import {useMapStore} from '@/state/useMapStore'; // Zustand 상태 관리
 import MarkerForm from '@/components/Marker/MarkerForm'; // MarkerForm 임포트
 
-const MapScreen = () => {
+const WalkingScreen: React.FC = () => {
   const {
     showPersonalBlueZone,
     showGlobalBlueZone,
@@ -42,13 +42,13 @@ const MapScreen = () => {
   useEffect(() => {
     Geolocation.getCurrentPosition(
       position => {
-        const { latitude, longitude } = position.coords;
-        setUserLocation({ latitude, longitude });
+        const {latitude, longitude} = position.coords;
+        setUserLocation({latitude, longitude});
         fetchPersonalBlueZone(latitude, longitude);
         fetchGlobalBlueZone(latitude, longitude);
       },
       error => console.log(error),
-      { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
+      {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
     );
   }, []);
 
@@ -62,13 +62,14 @@ const MapScreen = () => {
         style={styles.map}
         provider={PROVIDER_GOOGLE}
         showsUserLocation
+        followsUserLocation
+        showsMyLocationButton
         initialRegion={{
           latitude: userLocation?.latitude || 35.096406, // 기본 값
           longitude: userLocation?.longitude || 128.853919, // 기본 값
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421,
-        }}
-      >
+        }}>
         {/* 개인 블루존 히트맵 */}
         {showPersonalBlueZone && (
           <Heatmap
@@ -201,4 +202,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MapScreen;
+export default WalkingScreen;

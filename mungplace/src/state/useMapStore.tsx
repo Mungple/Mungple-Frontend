@@ -1,5 +1,5 @@
 // src/state/useMapStore.ts
-import create from 'zustand';
+import {create} from 'zustand';
 
 interface Zone {
   latitude: number;
