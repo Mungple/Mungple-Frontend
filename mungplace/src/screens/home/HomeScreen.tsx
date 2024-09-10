@@ -2,16 +2,19 @@ import React from 'react';
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 
 import {useAppStore} from '@/state/useAppStore';
-import { walkingNavigations } from '@/constants';
-import { useNavigation } from '@react-navigation/native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { MapStackParamList } from '@/navigations/stack/WalkingStackNavigator';
-
-type Navigation = NativeStackNavigationProp<MapStackParamList>;
+import {walkingNavigations} from '@/constants';
+import {useNavigation} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {MapStackParamList} from '@/navigations/stack/WalkingStackNavigator';
 
 const HomeScreen: React.FC = () => {
   const setWalkingStart = useAppStore(state => state.setWalkingStart);
-  const navigation = useNavigation<Navigation>();
+  const navigation = useNavigation<NativeStackNavigationProp<MapStackParamList>>();
+
+  const handleWalkingStart = () => {
+    setWalkingStart(true);
+    navigation.navigate(walkingNavigations.WALKING);
+  };
 
   return (
     <View style={styles.container}>
@@ -25,13 +28,7 @@ const HomeScreen: React.FC = () => {
       <View style={styles.emptySpace}></View>
 
       {/* Play Button */}
-      <TouchableOpacity
-        style={styles.playButton}
-        onPress={() => {
-          setWalkingStart(true)
-          navigation.navigate(walkingNavigations.WALKING)
-        }}
-      >
+      <TouchableOpacity style={styles.playButton} onPress={handleWalkingStart}>
         <Text style={styles.playButtonText}>▶</Text>
       </TouchableOpacity>
     </View>

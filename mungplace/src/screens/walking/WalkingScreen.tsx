@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {
   View,
   Button,
@@ -7,11 +7,14 @@ import {
   Text,
   TouchableOpacity,
   TouchableWithoutFeedback,
+  Pressable,
 } from 'react-native';
-import MapView, {Heatmap, Marker, PROVIDER_GOOGLE} from 'react-native-maps';
+import {useMapStore} from '@/state/useMapStore';
+
+import MarkerForm from '@/components/Marker/MarkerForm';
 import Geolocation from '@react-native-community/geolocation';
-import {useMapStore} from '@/state/useMapStore'; // Zustand 상태 관리
-import MarkerForm from '@/components/Marker/MarkerForm'; // MarkerForm 임포트
+import MapView, {Heatmap, Marker, PROVIDER_GOOGLE} from 'react-native-maps';
+import { colors } from '@/constants';
 
 const WalkingScreen: React.FC = () => {
   const {
@@ -31,12 +34,26 @@ const WalkingScreen: React.FC = () => {
     mungPlaces,
   } = useMapStore();
 
+  const mapRef = useRef<MapView | null>(null);
   const [userLocation, setUserLocation] = useState<{
     latitude: number;
     longitude: number;
   } | null>(null);
   const [isFormVisible, setIsFormVisible] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isUserLocationError, setIsUserLocationError] = useState(false);
+  const handlePressUserLocation = () => {
+    if (isUserLocationError) {
+      return;
+    }
+
+    mapRef.current?.animateToRegion({
+      latitude: userLocation?.latitude || 35.096406,
+      longitude: userLocation?.longitude || 128.853919,
+      latitudeDelta: 0.0922,
+      longitudeDelta: 0.0421,
+    });
+  };
 
   // 사용자 위치를 가져오는 useEffect
   useEffect(() => {
@@ -46,9 +63,16 @@ const WalkingScreen: React.FC = () => {
         setUserLocation({latitude, longitude});
         fetchPersonalBlueZone(latitude, longitude);
         fetchGlobalBlueZone(latitude, longitude);
+        setIsUserLocationError(false);
       },
-      error => console.log(error),
-      {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
+      () => {
+        setIsUserLocationError(true);
+      },
+      {
+        enableHighAccuracy: true,
+        timeout: 15000,
+        maximumAge: 10000,
+      },
     );
   }, []);
 
@@ -63,13 +87,8 @@ const WalkingScreen: React.FC = () => {
         provider={PROVIDER_GOOGLE}
         showsUserLocation
         followsUserLocation
-        showsMyLocationButton
-        initialRegion={{
-          latitude: userLocation?.latitude || 35.096406, // 기본 값
-          longitude: userLocation?.longitude || 128.853919, // 기본 값
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
-        }}>
+        showsMyLocationButton={false}>
+
         {/* 개인 블루존 히트맵 */}
         {showPersonalBlueZone && (
           <Heatmap
@@ -118,6 +137,12 @@ const WalkingScreen: React.FC = () => {
             />
           ))}
       </MapView>
+      
+      <View style={styles.buttonList}>
+        <Pressable style={styles.mapButton} onPress={handlePressUserLocation}>
+          <Text>내위치</Text>
+        </Pressable>
+      </View>
 
       <View style={styles.buttonContainer}>
         <Button title={`Personal BlueZone`} onPress={togglePersonalBlueZone} />
@@ -199,6 +224,24 @@ const styles = StyleSheet.create({
     padding: 20,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
+  },
+  buttonList: {
+    position: 'absolute',
+    bottom: 30,
+    right: 15,
+  },
+  mapButton: {
+    backgroundColor: colors.PINK_700,
+    marginVertical: 5,
+    height: 48,
+    width: 48,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 30,
+    shadowColor: colors.BLACK,
+    shadowOffset: {width: 1, height: 2},
+    shadowOpacity: 0.5,
+    elevation: 2,
   },
 });
 
