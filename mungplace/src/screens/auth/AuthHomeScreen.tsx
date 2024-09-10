@@ -17,7 +17,7 @@ export default function AuthHomeScreen({navigation}: AuthHomeScreenProps) {
         <Image
           resizeMode="contain"
           style={styles.image}
-          source={require('@/assets/mungplace_logo.png')}
+          source={require('@/assets/mungple_logo.png')}
         />
       </View>
 
