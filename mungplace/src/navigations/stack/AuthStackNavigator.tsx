@@ -1,5 +1,4 @@
 import React from 'react';
-import {StyleSheet} from 'react-native';
 import {authNavigations} from '@/constants';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 

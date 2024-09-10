@@ -1,7 +1,10 @@
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import {useAppStore} from '@/state/useAppStore';
 import React from 'react';
 
-export default function HomeScreen() {
+const HomeScreen: React.FC = () => {
+  const setWalkingStart = useAppStore(state => state.setWalkingStart);
+
   return (
     <View style={styles.container}>
       {/* Image Section */}
@@ -14,12 +17,17 @@ export default function HomeScreen() {
       <View style={styles.emptySpace}></View>
 
       {/* Play Button */}
-      <TouchableOpacity style={styles.playButton}>
+      <TouchableOpacity
+        style={styles.playButton}
+        onPress={() => setWalkingStart(true)}
+      >
         <Text style={styles.playButtonText}>▶</Text>
       </TouchableOpacity>
     </View>
   );
-}
+};
+
+export default HomeScreen;
 
 const styles = StyleSheet.create({
   container: {
@@ -27,10 +35,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5F5F5',
     justifyContent: 'center',
     alignItems: 'center',
-    position: 'relative', // For absolute positioning of the button
+    position: 'relative',
   },
   imageContainer: {
-    flex: 4, // 3 parts for the image
+    flex: 4,
     width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
@@ -41,19 +49,19 @@ const styles = StyleSheet.create({
   },
   separator: {
     position: 'absolute',
-    bottom: 0, // Line at the bottom of the image
+    bottom: 0,
     width: '100%',
-    height: 2, // Thickness of the line
-    backgroundColor: '#000', // Color of the line
+    height: 2,
+    backgroundColor: '#000',
   },
   emptySpace: {
-    flex: 1, // 1 part for the empty space
+    flex: 1,
     width: '100%',
-    backgroundColor: '#F5F5F5', // Same as background color to blend in
+    backgroundColor: '#F5F5F5',
   },
   playButton: {
-    position: 'absolute', // Absolute positioning for the button
-    bottom: 90, // Adjust this value to control how far from the bottom the button appears
+    position: 'absolute',
+    bottom: 90,
     backgroundColor: '#F5A623',
     borderRadius: 75,
     width: 150,
@@ -61,10 +69,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
+    shadowOffset: {width: 0, height: 2},
     shadowOpacity: 0.8,
     shadowRadius: 2,
-    elevation: 5, // For Android shadow
+    elevation: 5,
   },
   playButtonText: {
     color: '#fff',

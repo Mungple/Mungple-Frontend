@@ -13,7 +13,13 @@ const authNavigations = {
   GOOGLE: 'Google',
 } as const;
 
+const walkingNavigations = {
+  HOME: 'Home',
+  WALKING: 'Walking',
+} as const;
+
 export {
   mainNavigations,
   authNavigations,
+  walkingNavigations,
 };
