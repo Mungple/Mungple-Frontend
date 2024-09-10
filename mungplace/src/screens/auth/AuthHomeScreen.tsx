@@ -1,5 +1,5 @@
 import React from 'react';
-import {SafeAreaView, StyleSheet, Dimensions, Image, View} from 'react-native';
+import {SafeAreaView, StyleSheet, Dimensions, Image, View, Text} from 'react-native';
 import CustomButton from '@/components/common/CustomButton';
 import {authNavigations} from '@/constants';
 import {AuthStackParamList} from '@/navigations/stack/AuthStackNavigator';
@@ -17,8 +17,12 @@ export default function AuthHomeScreen({navigation}: AuthHomeScreenProps) {
         <Image
           resizeMode="contain"
           style={styles.image}
-          source={require('@/assets/mungple.png')}
+          source={require('@/assets/mungplace_logo.png')}
         />
+      </View>
+
+      <View style={styles.imageContainer}>
+        <Text>멍플</Text>
       </View>
 
       <View style={styles.buttonContainer}>
@@ -53,7 +57,8 @@ const styles = StyleSheet.create({
     marginVertical: 30,
   },
   imageContainer: {
-    flex: 1.5,
+    alignItems: 'center',
+    flex: 1,
     width: Dimensions.get('screen').width / 2,
   },
   image: {

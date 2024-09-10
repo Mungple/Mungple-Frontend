@@ -83,6 +83,7 @@ const WalkingScreen: React.FC = () => {
   return (
     <View style={styles.container}>
       <MapView
+        ref={mapRef}
         style={styles.map}
         provider={PROVIDER_GOOGLE}
         showsUserLocation
@@ -144,14 +145,6 @@ const WalkingScreen: React.FC = () => {
         </Pressable>
       </View>
 
-      <View style={styles.buttonContainer}>
-        <Button title={`Personal BlueZone`} onPress={togglePersonalBlueZone} />
-        <Button title={`Global BlueZone`} onPress={toggleGlobalBlueZone} />
-        <Button title={`RedZone`} onPress={toggleRedZone} />
-        <Button title={`MungPlace`} onPress={toggleMungPlace} />
-        <Button title="Add Marker" onPress={() => setIsFormVisible(true)} />
-      </View>
-
       {/* 햄버거 버튼 */}
       <TouchableOpacity onPress={toggleModal} style={styles.hamburgerButton}>
         <Text style={styles.hamburgerText}>&#9776;</Text>
@@ -169,7 +162,15 @@ const WalkingScreen: React.FC = () => {
             <TouchableWithoutFeedback>
               <View style={styles.modalContent}>
                 <Button title="Close Modal" onPress={toggleModal} />
-                <Text>This is the modal content!</Text>
+                
+                {/* 모달 안에 버튼들 */}
+                <View style={styles.buttonContainer}>
+                  <Button title="Personal BlueZone" onPress={togglePersonalBlueZone} />
+                  <Button title="Global BlueZone" onPress={toggleGlobalBlueZone} />
+                  <Button title="RedZone" onPress={toggleRedZone} />
+                  <Button title="MungPlace" onPress={toggleMungPlace} />
+                  <Button title="Add Marker" onPress={() => setIsFormVisible(true)} />
+                </View>
               </View>
             </TouchableWithoutFeedback>
           </View>
@@ -197,12 +198,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   buttonContainer: {
-    position: 'absolute',
-    bottom: 20,
-    left: 20,
-    right: 20,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    marginTop: 20,  // 버튼들이 모달 안에서 너무 밀착되지 않도록 마진 추가
   },
   hamburgerButton: {
     position: 'absolute',
@@ -231,7 +227,7 @@ const styles = StyleSheet.create({
     right: 15,
   },
   mapButton: {
-    backgroundColor: colors.PINK_700,
+    backgroundColor: colors.WHITE,
     marginVertical: 5,
     height: 48,
     width: 48,
