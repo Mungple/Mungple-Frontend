@@ -21,10 +21,6 @@ export default function AuthHomeScreen({navigation}: AuthHomeScreenProps) {
         />
       </View>
 
-      <View style={styles.imageContainer}>
-        <Text>멍플</Text>
-      </View>
-
       <View style={styles.buttonContainer}>
         <CustomButton
           label="카카오 로그인하기"
@@ -51,7 +47,7 @@ export default function AuthHomeScreen({navigation}: AuthHomeScreenProps) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 1.5,
     alignItems: 'center',
     marginHorizontal: 30,
     marginVertical: 30,
@@ -59,7 +55,7 @@ const styles = StyleSheet.create({
   imageContainer: {
     alignItems: 'center',
     flex: 1,
-    width: Dimensions.get('screen').width / 2,
+    width: Dimensions.get('screen').width * 3 / 5,
   },
   image: {
     width: '100%',
