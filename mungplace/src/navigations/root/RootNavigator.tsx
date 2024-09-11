@@ -19,7 +19,11 @@ const RootNavigator: React.FC = () => {
     navigatorToShow = <AuthStackNavigator />;
   }
 
-  return <NavigationContainer>{navigatorToShow}</NavigationContainer>;
+  return (
+    <NavigationContainer>
+      {navigatorToShow}
+    </NavigationContainer>
+  );
 };
 
 export default RootNavigator;

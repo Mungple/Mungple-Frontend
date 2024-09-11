@@ -1,11 +1,17 @@
 import React from 'react';
-import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import {Dimensions} from 'react-native';
+import styled from 'styled-components/native';
 
-import {useAppStore} from '@/state/useAppStore';
 import {walkingNavigations} from '@/constants';
+import {useAppStore} from '@/state/useAppStore';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {MapStackParamList} from '@/navigations/stack/WalkingStackNavigator';
+
+import CustomCard from '@/components/common/CustomCard';
+import CustomButton from '@/components/common/CustomButton';
+
+const {height: windowHeight} = Dimensions.get('window');
 
 const HomeScreen: React.FC = () => {
   const setWalkingStart = useAppStore(state => state.setWalkingStart);
@@ -17,74 +23,72 @@ const HomeScreen: React.FC = () => {
   };
 
   return (
-    <View style={styles.container}>
-      {/* Image Section */}
-      <View style={styles.imageContainer}>
-        <Text>이미지</Text>
-        <View style={styles.separator} />
-      </View>
-
-      {/* Empty Space Section */}
-      <View style={styles.emptySpace}></View>
-
-      {/* Play Button */}
-      <TouchableOpacity style={styles.playButton} onPress={handleWalkingStart}>
-        <Text style={styles.playButtonText}>▶</Text>
-      </TouchableOpacity>
-    </View>
+    <Container>
+      <StyledCard
+        title="사진"
+        description="오늘의 산책 목표를 설정해보세요!"
+      />
+      
+      <StyledGoalCard
+        title="오늘의 목표"
+        description="오늘의 산책 목표를 설정해보세요!"
+      />
+      
+      <StyledButton
+        label="산책 시작하기"
+        onPress={handleWalkingStart}
+      />
+    </Container>
   );
 };
 
 export default HomeScreen;
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#F5F5F5',
-    justifyContent: 'center',
-    alignItems: 'center',
-    position: 'relative',
+const Container = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background-color: #f2f2f2;
+`;
+
+const StyledCard = styled(CustomCard).attrs({
+  style: {
+    backgroundColor: '#f8f9fa',
+    borderColor: '#ddd',
+    borderWidth: 1,
   },
-  imageContainer: {
-    flex: 4,
-    width: '100%',
-    justifyContent: 'center',
-    alignItems: 'center',
+  titleStyle: {
+    color: '#007AFF',
   },
-  image: {
-    width: '100%',
-    height: '100%',
+  descriptionStyle: {
+    color: '#333',
   },
-  separator: {
-    position: 'absolute',
-    bottom: 0,
-    width: '100%',
-    height: 2,
-    backgroundColor: '#000',
+})`
+  height: ${windowHeight * 0.42}px;
+`;
+
+const StyledGoalCard = styled(CustomCard).attrs({
+  style: {
+    backgroundColor: '#f8f9fa',
   },
-  emptySpace: {
-    flex: 1,
-    width: '100%',
-    backgroundColor: '#F5F5F5',
+  titleStyle: {
+    color: '#007AFF',
+    fontSize: 28,
   },
-  playButton: {
-    position: 'absolute',
-    bottom: 90,
-    backgroundColor: '#F5A623',
-    borderRadius: 75,
-    width: 150,
-    height: 150,
-    justifyContent: 'center',
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: {width: 0, height: 2},
-    shadowOpacity: 0.8,
-    shadowRadius: 2,
-    elevation: 5,
+  descriptionStyle: {
+    color: '#333',
+    fontSize: 16,
   },
-  playButtonText: {
+})`
+  height: ${windowHeight * 0.3}px;
+`;
+
+const StyledButton = styled(CustomButton).attrs({
+  style: {
+    backgroundColor: '#007AFF',
+  },
+  textStyle: {
     color: '#fff',
-    fontSize: 60,
-    textAlign: 'center',
   },
-});
+})``;
