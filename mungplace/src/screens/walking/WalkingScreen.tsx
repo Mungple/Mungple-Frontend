@@ -14,7 +14,8 @@ import {useMapStore} from '@/state/useMapStore';
 import MarkerForm from '@/components/Marker/MarkerForm';
 import Geolocation from '@react-native-community/geolocation';
 import MapView, {Heatmap, Marker, PROVIDER_GOOGLE} from 'react-native-maps';
-import { colors } from '@/constants';
+import {colors} from '@/constants';
+import usePermission from '@/hooks/usePermission';
 
 const WalkingScreen: React.FC = () => {
   const {
@@ -46,7 +47,7 @@ const WalkingScreen: React.FC = () => {
     if (isUserLocationError) {
       return;
     }
-
+    
     mapRef.current?.animateToRegion({
       latitude: userLocation?.latitude || 35.096406,
       longitude: userLocation?.longitude || 128.853919,
@@ -54,6 +55,7 @@ const WalkingScreen: React.FC = () => {
       longitudeDelta: 0.0421,
     });
   };
+  usePermission('LOCATION');
 
   // 사용자 위치를 가져오는 useEffect
   useEffect(() => {
@@ -89,7 +91,6 @@ const WalkingScreen: React.FC = () => {
         showsUserLocation
         followsUserLocation
         showsMyLocationButton={false}>
-
         {/* 개인 블루존 히트맵 */}
         {showPersonalBlueZone && (
           <Heatmap
@@ -138,7 +139,7 @@ const WalkingScreen: React.FC = () => {
             />
           ))}
       </MapView>
-      
+
       <View style={styles.buttonList}>
         <Pressable style={styles.mapButton} onPress={handlePressUserLocation}>
           <Text>내위치</Text>
@@ -162,14 +163,23 @@ const WalkingScreen: React.FC = () => {
             <TouchableWithoutFeedback>
               <View style={styles.modalContent}>
                 <Button title="Close Modal" onPress={toggleModal} />
-                
+
                 {/* 모달 안에 버튼들 */}
                 <View style={styles.buttonContainer}>
-                  <Button title="Personal BlueZone" onPress={togglePersonalBlueZone} />
-                  <Button title="Global BlueZone" onPress={toggleGlobalBlueZone} />
+                  <Button
+                    title="Personal BlueZone"
+                    onPress={togglePersonalBlueZone}
+                  />
+                  <Button
+                    title="Global BlueZone"
+                    onPress={toggleGlobalBlueZone}
+                  />
                   <Button title="RedZone" onPress={toggleRedZone} />
                   <Button title="MungPlace" onPress={toggleMungPlace} />
-                  <Button title="Add Marker" onPress={() => setIsFormVisible(true)} />
+                  <Button
+                    title="Add Marker"
+                    onPress={() => setIsFormVisible(true)}
+                  />
                 </View>
               </View>
             </TouchableWithoutFeedback>
@@ -198,7 +208,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   buttonContainer: {
-    marginTop: 20,  // 버튼들이 모달 안에서 너무 밀착되지 않도록 마진 추가
+    marginTop: 20, // 버튼들이 모달 안에서 너무 밀착되지 않도록 마진 추가
   },
   hamburgerButton: {
     position: 'absolute',

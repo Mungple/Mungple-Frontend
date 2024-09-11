@@ -1,6 +1,9 @@
 import React from 'react';
-import {SafeAreaView, StyleSheet, Dimensions, Image, View, Text} from 'react-native';
+import {SafeAreaView, StyleSheet, Dimensions, Image, View} from 'react-native';
+
+import imageSource from '@/assets/mungple_logo.png'
 import CustomButton from '@/components/common/CustomButton';
+
 import {authNavigations} from '@/constants';
 import {AuthStackParamList} from '@/navigations/stack/AuthStackNavigator';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -17,7 +20,7 @@ export default function AuthHomeScreen({navigation}: AuthHomeScreenProps) {
         <Image
           resizeMode="contain"
           style={styles.image}
-          source={require('@/assets/mungple_logo.png')}
+          source={imageSource}
         />
       </View>
 
