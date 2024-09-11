@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components/native';
-import {ViewStyle, StyleProp, View} from 'react-native';
+import {ViewStyle, StyleProp} from 'react-native';
 
 // 카드 컴포넌트의 props 타입을 정의하는 인터페이스
 interface CustomCardProps {
