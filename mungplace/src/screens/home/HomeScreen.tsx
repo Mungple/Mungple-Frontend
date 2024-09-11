@@ -25,22 +25,26 @@ const HomeScreen: React.FC = () => {
 
   return (
     <Container>
-      <ImageCard title="사진" />
+      <ImageCard />
 
       <DogInfo>
-        <Text>반려견 정보</Text>
-        <Row>
-          <RightText>성별</RightText>
-          <RightTextBold>남아</RightTextBold>
-        </Row>
-        <Row>
-          <RightText>나이</RightText>
-          <RightTextBold>36개월</RightTextBold>
-        </Row>
-        <Row>
-          <RightText>몸무게</RightText>
-          <RightTextBold>2kg</RightTextBold>
-        </Row>
+        <Col>
+          <Text>반려견 정보</Text>
+        </Col>
+        <Col>
+          <Row>
+            <RightText>성별</RightText>
+            <RightTextBold>남아</RightTextBold>
+          </Row>
+          <Row>
+            <RightText>나이</RightText>
+            <RightTextBold>36개월</RightTextBold>
+          </Row>
+          <Row>
+            <RightText>몸무게</RightText>
+            <RightTextBold>2kg</RightTextBold>
+          </Row>
+        </Col>
       </DogInfo>
 
       <StyledButton label="산책 시작하기" onPress={handleWalkingStart} />
@@ -50,7 +54,6 @@ const HomeScreen: React.FC = () => {
 
 export default HomeScreen;
 
-// 스타일 정의
 const Container = styled.View`
   flex: 1;
   justify-content: center;
@@ -83,7 +86,12 @@ const DogInfo = styled(CustomCard).attrs({
   height: ${windowHeight * 0.3}px;
   width: 100%;
   padding: 20px;
-  justify-content: space-between;
+  flex-direction: row;
+  align-items: center;
+`;
+
+const Col = styled.View`
+  flex: 1;
 `;
 
 const Row = styled.View`
@@ -95,7 +103,6 @@ const Row = styled.View`
 const RightText = styled.Text`
   font-size: 18px;
   color: #333;
-  flex: 1;
 `;
 
 const RightTextBold = styled(RightText)`
