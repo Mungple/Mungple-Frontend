@@ -1,5 +1,5 @@
 import React from 'react';
-import {Dimensions} from 'react-native';
+import {Dimensions, Text} from 'react-native';
 import styled from 'styled-components/native';
 
 import {walkingNavigations} from '@/constants';
@@ -15,7 +15,8 @@ const {height: windowHeight} = Dimensions.get('window');
 
 const HomeScreen: React.FC = () => {
   const setWalkingStart = useAppStore(state => state.setWalkingStart);
-  const navigation = useNavigation<NativeStackNavigationProp<MapStackParamList>>();
+  const navigation =
+    useNavigation<NativeStackNavigationProp<MapStackParamList>>();
 
   const handleWalkingStart = () => {
     setWalkingStart(true);
@@ -24,26 +25,32 @@ const HomeScreen: React.FC = () => {
 
   return (
     <Container>
-      <StyledCard
-        title="사진"
-        description="오늘의 산책 목표를 설정해보세요!"
-      />
-      
-      <StyledGoalCard
-        title="오늘의 목표"
-        description="오늘의 산책 목표를 설정해보세요!"
-      />
-      
-      <StyledButton
-        label="산책 시작하기"
-        onPress={handleWalkingStart}
-      />
+      <ImageCard title="사진" />
+
+      <DogInfo>
+        <Text>반려견 정보</Text>
+        <Row>
+          <RightText>성별</RightText>
+          <RightTextBold>남아</RightTextBold>
+        </Row>
+        <Row>
+          <RightText>나이</RightText>
+          <RightTextBold>36개월</RightTextBold>
+        </Row>
+        <Row>
+          <RightText>몸무게</RightText>
+          <RightTextBold>2kg</RightTextBold>
+        </Row>
+      </DogInfo>
+
+      <StyledButton label="산책 시작하기" onPress={handleWalkingStart} />
     </Container>
   );
 };
 
 export default HomeScreen;
 
+// 스타일 정의
 const Container = styled.View`
   flex: 1;
   justify-content: center;
@@ -52,7 +59,7 @@ const Container = styled.View`
   background-color: #f2f2f2;
 `;
 
-const StyledCard = styled(CustomCard).attrs({
+const ImageCard = styled(CustomCard).attrs({
   style: {
     backgroundColor: '#f8f9fa',
     borderColor: '#ddd',
@@ -68,20 +75,32 @@ const StyledCard = styled(CustomCard).attrs({
   height: ${windowHeight * 0.42}px;
 `;
 
-const StyledGoalCard = styled(CustomCard).attrs({
+const DogInfo = styled(CustomCard).attrs({
   style: {
-    backgroundColor: '#f8f9fa',
-  },
-  titleStyle: {
-    color: '#007AFF',
-    fontSize: 28,
-  },
-  descriptionStyle: {
-    color: '#333',
-    fontSize: 16,
+    backgroundColor: '#fdebd0',
   },
 })`
   height: ${windowHeight * 0.3}px;
+  width: 100%;
+  padding: 20px;
+  justify-content: space-between;
+`;
+
+const Row = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 25px;
+`;
+
+const RightText = styled.Text`
+  font-size: 18px;
+  color: #333;
+  flex: 1;
+`;
+
+const RightTextBold = styled(RightText)`
+  font-weight: bold;
+  text-align: right;
 `;
 
 const StyledButton = styled(CustomButton).attrs({
