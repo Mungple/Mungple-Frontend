@@ -2,11 +2,11 @@ import React from 'react';
 import {Dimensions, Text} from 'react-native';
 import styled from 'styled-components/native';
 
-import {walkingNavigations} from '@/constants';
+import {mapNavigations} from '@/constants';
 import {useAppStore} from '@/state/useAppStore';
 import {useNavigation} from '@react-navigation/native';
+import {MapStackParamList} from '@/navigations/stack/MapStackNavigator';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {MapStackParamList} from '@/navigations/stack/WalkingStackNavigator';
 
 import CustomCard from '@/components/common/CustomCard';
 import CustomButton from '@/components/common/CustomButton';
@@ -15,12 +15,11 @@ const {height: windowHeight} = Dimensions.get('window');
 
 const HomeScreen: React.FC = () => {
   const setWalkingStart = useAppStore(state => state.setWalkingStart);
-  const navigation =
-    useNavigation<NativeStackNavigationProp<MapStackParamList>>();
+  const navigation = useNavigation<NativeStackNavigationProp<MapStackParamList>>();
 
   const handleWalkingStart = () => {
     setWalkingStart(true);
-    navigation.navigate(walkingNavigations.WALKING);
+    navigation.navigate(mapNavigations.WALKING);
   };
 
   return (

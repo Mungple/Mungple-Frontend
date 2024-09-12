@@ -1,13 +1,13 @@
 import React from 'react';
-import {walkingNavigations} from '@/constants';
+import {mapNavigations} from '@/constants';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import HomeScreen from '@/screens/home/HomeScreen';
 import WalkingScreen from '@/screens/walking/WalkingScreen';
 
 export type MapStackParamList = {
-  [walkingNavigations.HOME]: undefined;
-  [walkingNavigations.WALKING]: undefined;
+  [mapNavigations.WALKING]: undefined;
+  [mapNavigations.HOME]: undefined;
 };
 
 const Stack = createNativeStackNavigator<MapStackParamList>();
@@ -19,8 +19,8 @@ const MapStackNavigator: React.FC = () => {
         headerTitle: ' ',
         headerShown: false,
       }}>
-      <Stack.Screen name={walkingNavigations.HOME} component={HomeScreen}/>
-      <Stack.Screen name={walkingNavigations.WALKING} component={WalkingScreen}/>
+      <Stack.Screen name={mapNavigations.WALKING} component={WalkingScreen}/>
+      <Stack.Screen name={mapNavigations.HOME} component={HomeScreen}/>
     </Stack.Navigator>
   );
 };

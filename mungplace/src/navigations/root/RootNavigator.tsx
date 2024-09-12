@@ -4,7 +4,7 @@ import {NavigationContainer} from '@react-navigation/native';
 
 import AuthStackNavigator from '../stack/AuthStackNavigator';
 import MainTabNavigator from '@/navigations/tap/MainTabNavigator';
-import WalkingStackNavigator from '../stack/WalkingStackNavigator';
+import MapStackNavigator from '../stack/MapStackNavigator';
 
 const RootNavigator: React.FC = () => {
   let navigatorToShow: JSX.Element;
@@ -12,7 +12,7 @@ const RootNavigator: React.FC = () => {
   const walkingStart = useAppStore(state => state.walkingStart);
 
   if (walkingStart) {
-    navigatorToShow = <WalkingStackNavigator />;
+    navigatorToShow = <MapStackNavigator />;
   } else if (isLogin) {
     navigatorToShow = <MainTabNavigator />;
   } else {

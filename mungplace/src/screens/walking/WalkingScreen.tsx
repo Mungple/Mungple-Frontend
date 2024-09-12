@@ -9,13 +9,13 @@ import {
   TouchableWithoutFeedback,
   Pressable,
 } from 'react-native';
+import {colors} from '@/constants';
 import {useMapStore} from '@/state/useMapStore';
 
-import MarkerForm from '@/components/Marker/MarkerForm';
-import Geolocation from '@react-native-community/geolocation';
-import MapView, {Heatmap, Marker, PROVIDER_GOOGLE} from 'react-native-maps';
-import {colors} from '@/constants';
 import usePermission from '@/hooks/usePermission';
+import useUserLocation from '@/hooks/useUserLocation';
+import MarkerForm from '@/components/Marker/MarkerForm';
+import MapView, {Heatmap, Marker, PROVIDER_GOOGLE} from 'react-native-maps';
 
 const WalkingScreen: React.FC = () => {
   const {
@@ -27,8 +27,6 @@ const WalkingScreen: React.FC = () => {
     toggleGlobalBlueZone,
     toggleRedZone,
     toggleMungPlace,
-    fetchPersonalBlueZone,
-    fetchGlobalBlueZone,
     personalBlueZones,
     globalBlueZones,
     redZones,
@@ -36,13 +34,9 @@ const WalkingScreen: React.FC = () => {
   } = useMapStore();
 
   const mapRef = useRef<MapView | null>(null);
-  const [userLocation, setUserLocation] = useState<{
-    latitude: number;
-    longitude: number;
-  } | null>(null);
   const [isFormVisible, setIsFormVisible] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [isUserLocationError, setIsUserLocationError] = useState(false);
+  const {userLocation, isUserLocationError} = useUserLocation();
   const handlePressUserLocation = () => {
     if (isUserLocationError) {
       return;
@@ -55,28 +49,7 @@ const WalkingScreen: React.FC = () => {
       longitudeDelta: 0.0421,
     });
   };
-  usePermission('LOCATION');
-
-  // 사용자 위치를 가져오는 useEffect
-  useEffect(() => {
-    Geolocation.getCurrentPosition(
-      position => {
-        const {latitude, longitude} = position.coords;
-        setUserLocation({latitude, longitude});
-        fetchPersonalBlueZone(latitude, longitude);
-        fetchGlobalBlueZone(latitude, longitude);
-        setIsUserLocationError(false);
-      },
-      () => {
-        setIsUserLocationError(true);
-      },
-      {
-        enableHighAccuracy: true,
-        timeout: 15000,
-        maximumAge: 10000,
-      },
-    );
-  }, []);
+  usePermission('LOCATION')
 
   const toggleModal = () => {
     setIsModalVisible(!isModalVisible);

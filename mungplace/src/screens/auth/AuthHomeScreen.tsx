@@ -6,14 +6,14 @@ import CustomButton from '@/components/common/CustomButton';
 
 import {authNavigations} from '@/constants';
 import {AuthStackParamList} from '@/navigations/stack/AuthStackNavigator';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
 type AuthHomeScreenProps = NativeStackScreenProps<
   AuthStackParamList,
   typeof authNavigations.AUTH_HOME
 >;
 
-export default function AuthHomeScreen({navigation}: AuthHomeScreenProps) {
+const AuthHomeScreen: React.FC<AuthHomeScreenProps> = ({navigation}) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.imageContainer}>
@@ -46,7 +46,7 @@ export default function AuthHomeScreen({navigation}: AuthHomeScreenProps) {
       </View>
     </SafeAreaView>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
   imageContainer: {
     alignItems: 'center',
     flex: 1,
-    width: Dimensions.get('screen').width * 3 / 5,
+    width: (Dimensions.get('screen').width * 3) / 5,
   },
   image: {
     width: '100%',
@@ -74,14 +74,19 @@ const styles = StyleSheet.create({
   },
   kakaoButtonContainer: {
     backgroundColor: '#FEE503',
+    borderRadius: 0,
   },
   naverButtonContainer: {
     backgroundColor: '#19CE60',
+    borderRadius: 0,
   },
   googleButtonContainer: {
     backgroundColor: '#FFFFFF',
     borderStyle: 'solid',
     borderWidth: 1,
+    borderRadius: 0,
     borderColor: '#000000',
   },
 });
+
+export default AuthHomeScreen;
