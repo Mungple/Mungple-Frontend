@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components/native';
 import { Alert, Dimensions, Image, TextInput } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -7,8 +7,8 @@ import { authNavigations } from '@/constants';
 import Logo from '@/assets/mungpleAppLogo.png';
 import kakaoLogo from '@/assets/kakao_login_button.png';
 import { AuthStackParamList } from '@/navigations/stack/AuthStackNavigator';
-import CustomButton from '@/components/common/CustomButton';
 import CustomText from '@/components/common/CustomText';
+import CustomButton from '@/components/common/CustomButton';
 
 type AuthHomeScreenProps = NativeStackScreenProps<
   AuthStackParamList,
@@ -25,7 +25,7 @@ const AuthHomeScreen: React.FC<AuthHomeScreenProps> = ({ navigation }) => {
     if (username.trim()) {
       managerLogin(username);
     } else {
-      console.error('유저이름은 필수입니다');
+      Alert.alert('Error', '유저이름은 필수입니다');
     }
   };
 
@@ -36,13 +36,10 @@ const AuthHomeScreen: React.FC<AuthHomeScreenProps> = ({ navigation }) => {
     } else if (count === 5) {
       Alert.alert('멍플', '왈왈!')
     } else if (count === 7) {
+      setCount(0)
       navigation.navigate(authNavigations.EASTER_EGG);
     }
   }
-
-  useEffect(() => {
-    setCount(0)
-  }, [])
 
   return (
     <Container>
