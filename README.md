@@ -119,167 +119,33 @@
 
 ```
 📦src
- ┣ 📂api
- ┃ ┣ 📜auth.ts
- ┃ ┣ 📜axios.ts
- ┃ ┣ 📜image.ts
- ┃ ┣ 📜index.ts
- ┃ ┣ 📜map.ts
- ┃ ┣ 📜pet.ts
- ┃ ┣ 📜queryClient.ts
- ┃ ┗ 📜walk.ts
- ┣ 📂assets
- ┃ ┣ 📂fonts
- ┃ ┃ ┣ 📜OTLaundryGothicB.otf
- ┃ ┃ ┗ 📜OTLaundryGothicR.otf
- ┃ ┣ 📜blueMarker.png
- ┃ ┣ 📜dog_main.png
- ┃ ┣ 📜dogfoot.png
- ┃ ┣ 📜doghouse.png
- ┃ ┣ 📜google_login_button.png
- ┃ ┣ 📜kakao_login_button.png
- ┃ ┣ 📜mungPleMarker.png
- ┃ ┣ 📜mungple.png
- ┃ ┣ 📜mungpleAppLogo.png
- ┃ ┣ 📜mungple_logo.png
- ┃ ┣ 📜mungple_logo_bottom.png
- ┃ ┣ 📜mungple_logo_no_text.png
- ┃ ┣ 📜naver_login_button.png
- ┃ ┣ 📜paw.png
- ┃ ┣ 📜profile-image.png
- ┃ ┣ 📜redMarker.png
- ┃ ┗ 📜whitedog.gif
- ┣ 📂components
+ ┣ 📂api : 서버와의 통신을 위한 API 호출 관련 로직을 관리하는 디렉토리
+ ┣ 📂assets : 정적 자원을 저장하는 디렉토리
+ ┣ 📂components : 재사용 가능한 UI 컴포넌트를 관리하는 디렉토리
  ┃ ┣ 📂common
- ┃ ┃ ┣ 📜CompoundOption.tsx
- ┃ ┃ ┣ 📜CustomBottomSheet.tsx
- ┃ ┃ ┣ 📜CustomButton.tsx
- ┃ ┃ ┣ 📜CustomCard.tsx
- ┃ ┃ ┣ 📜CustomHeader.tsx
- ┃ ┃ ┣ 📜CustomImageInput.tsx
- ┃ ┃ ┣ 📜CustomInputField.tsx
- ┃ ┃ ┣ 📜CustomMapButton.tsx
- ┃ ┃ ┣ 📜CustomModal.tsx
- ┃ ┃ ┣ 📜CustomModalHeader.tsx
- ┃ ┃ ┣ 📜CustomText.tsx
- ┃ ┃ ┣ 📜ImagePicker.tsx
- ┃ ┃ ┣ 📜LoadingSpinner.tsx
- ┃ ┃ ┣ 📜ManagerLogin.tsx
- ┃ ┃ ┣ 📜RadioButtonGroup.tsx
- ┃ ┃ ┗ 📜RadioButtonItem.tsx
  ┃ ┣ 📂map
- ┃ ┃ ┣ 📜AllBlueZoneHeatmap.tsx
- ┃ ┃ ┣ 📜AllRedZoneHeatmap.tsx
- ┃ ┃ ┣ 📜MapComponent.tsx
- ┃ ┃ ┣ 📜MapSettings.tsx
- ┃ ┃ ┣ 📜MarkerForm.tsx
- ┃ ┃ ┣ 📜MungZoneHeatmap.tsx
- ┃ ┃ ┗ 📜MyBlueZoneHeatmap.tsx
  ┃ ┣ 📂marker
- ┃ ┃ ┗ 📜MarkerForm.tsx
  ┃ ┣ 📂record
- ┃ ┃ ┣ 📜Calendar.tsx
- ┃ ┃ ┣ 📜DateBox.tsx
- ┃ ┃ ┣ 📜DayOfWeeks.tsx
- ┃ ┃ ┣ 📜MonthSelector.tsx
- ┃ ┃ ┣ 📜MonthStatistics.tsx
- ┃ ┃ ┣ 📜WalkDetail.tsx
- ┃ ┃ ┣ 📜WalkDogs.tsx
- ┃ ┃ ┣ 📜WalkMap.tsx
- ┃ ┃ ┗ 📜YearSelector.tsx
  ┃ ┣ 📂setting
- ┃ ┃ ┣ 📜EditProfileImageOption.tsx
- ┃ ┃ ┗ 📜SettingItem.tsx
  ┃ ┣ 📂user
- ┃ ┃ ┣ 📜PetForm.tsx
- ┃ ┃ ┣ 📜PetInfoBox.tsx
- ┃ ┃ ┗ 📜PetList.tsx
  ┃ ┗ 📂walking
- ┃ ┃ ┗ 📜ElapsedTime.tsx
- ┣ 📂constants
- ┃ ┣ 📜colors.ts
- ┃ ┣ 📜device.ts
- ┃ ┣ 📜index.ts
- ┃ ┣ 📜keys.ts
- ┃ ┣ 📜messages.ts
- ┃ ┣ 📜navigations.ts
- ┃ ┗ 📜numbers.ts
- ┣ 📂hooks
- ┃ ┣ 📂queries
- ┃ ┃ ┣ 📜useAuth.ts
- ┃ ┃ ┣ 📜useImage.ts
- ┃ ┃ ┗ 📜usePet.ts
- ┃ ┣ 📜useAppState.ts
- ┃ ┣ 📜useForm.ts
- ┃ ┣ 📜useImagePicker.ts
- ┃ ┣ 📜useMarkersWithinRadius.ts
- ┃ ┣ 📜useModal.ts
- ┃ ┣ 📜useMyMarkers.ts
- ┃ ┣ 📜usePermission.ts
- ┃ ┣ 📜usePetAge.ts
- ┃ ┣ 📜useUserLocation.ts
- ┃ ┗ 📜useWebsocket.ts
- ┣ 📂navigations
+ ┣ 📂constants : 프로젝트에서 사용되는 상수 값을 정의하는 디렉토리
+ ┣ 📂hooks : 커스텀 훅을 저장하는 디렉토리
+ ┃ ┣ 📂queries : 데이터 fetching과 관련된 쿼리 훅을 관리
+ ┣ 📂navigations : 화면 간의 네비게이션 로직을 관리하는 디렉토리
  ┃ ┣ 📂root
- ┃ ┃ ┗ 📜RootNavigator.tsx
  ┃ ┣ 📂stack
- ┃ ┃ ┣ 📜AuthStackNavigator.tsx
- ┃ ┃ ┣ 📜MapStackNavigator.tsx
- ┃ ┃ ┣ 📜RecordStackNavigator.tsx
- ┃ ┃ ┗ 📜SettingStackNavigator.tsx
  ┃ ┗ 📂tab
- ┃ ┃ ┗ 📜MainTabNavigator.tsx
- ┣ 📂screens
+ ┣ 📂screens : 각각의 화면(UI)을 정의하는 디렉토리
  ┃ ┣ 📂auth
- ┃ ┃ ┣ 📜AuthHomeScreen.tsx
- ┃ ┃ ┗ 📜SocialLoginScreen.tsx
  ┃ ┣ 📂home
- ┃ ┃ ┣ 📜HomeScreen.tsx
- ┃ ┃ ┣ 📜HomeScreenStyle.tsx
- ┃ ┃ ┗ 📜SplashScreen.tsx
  ┃ ┣ 📂map
- ┃ ┃ ┣ 📜FacilityDetailScreen.tsx
- ┃ ┃ ┣ 📜MapScreen.tsx
- ┃ ┃ ┣ 📜MarkerDetailScreen.tsx
- ┃ ┃ ┗ 📜MyMarkerScreen.tsx
  ┃ ┣ 📂record
- ┃ ┃ ┣ 📜RecordScreen.tsx
- ┃ ┃ ┣ 📜WalkDetailScreen.tsx
- ┃ ┃ ┗ 📜WalkListScreen.tsx
  ┃ ┣ 📂user
- ┃ ┃ ┣ 📜DeleteAccountScreen.tsx
- ┃ ┃ ┣ 📜EditProfileScreen.tsx
- ┃ ┃ ┣ 📜MyPageScreen.tsx
- ┃ ┃ ┣ 📜MyPageScreenStyle.tsx
- ┃ ┃ ┣ 📜PetDetailScreen.tsx
- ┃ ┃ ┗ 📜SettingScreen.tsx
  ┃ ┗ 📂walking
- ┃ ┃ ┣ 📜CountDown.tsx
- ┃ ┃ ┣ 📜WalkingScreen.tsx
- ┃ ┃ ┗ 📜WalkingScreenStyle.tsx
- ┣ 📂services
- ┃ ┗ 📜mapService.tsx
- ┣ 📂state
- ┃ ┣ 📜useAppStore.tsx
- ┃ ┣ 📜useMapStore.tsx
- ┃ ┗ 📜useUserStore.tsx
- ┣ 📂types
- ┃ ┣ 📜common.ts
- ┃ ┣ 📜declarations.d.ts
- ┃ ┣ 📜domain.ts
- ┃ ┣ 📜index.ts
- ┃ ┣ 📜map.ts
- ┃ ┗ 📜ngeohash.d.ts
- ┗ 📂utils
- ┃ ┣ 📜axiosInstance.ts
- ┃ ┣ 📜common.ts
- ┃ ┣ 📜date.ts
- ┃ ┣ 📜encryptStorage.ts
- ┃ ┣ 📜header.ts
- ┃ ┣ 📜image.ts
- ┃ ┣ 📜index.ts
- ┃ ┣ 📜recordCalculator.ts
- ┃ ┗ 📜validate.ts
+ ┣ 📂state : 전역 상태 관리 로직을 정의하는 디렉토리
+ ┣ 📂types : 타입 정의 파일을 저장하는 디렉토리
+ ┗ 📂utils : 유틸리티 함수들을 관리하는 디렉토리
 ```
 </details>
 
