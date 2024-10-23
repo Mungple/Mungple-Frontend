@@ -153,7 +153,32 @@
 - **GOOGLEMAP API**: 지도 서비스와 관련된 다양한 기능을 활용하기 위해 GOOGLEMAP API를 사용합니다.
 
 ## 👥 역할 별 담당자
-|FE|FE|FE|
-| :------------------------------------------------------------: | :------------------------------------------------------------: | :------------------------------------------------------------: | 
-|**윤대영**|**임경태**|**박지원**|
-| <img src="./resource/윤대영.png" style="height: 70px"> | <img src="https://avatars.githubusercontent.com/u/149301473?v=4" width="70px" height="70px" style="object-fit: cover;"> | <img src="./resource/박지원.png" style="height: 70px"> |
+
+<table style="table-layout: fixed; width: 100%;">
+  <tr>
+    <td style="text-align: center;">
+      <img src="./resource/윤대영.png" width="150px" height="150px" style="object-fit: cover;">
+    </td>
+    <td style="text-align: center;">
+      <img src="https://avatars.githubusercontent.com/u/149301473?v=4" width="150px" height="150px" style="object-fit: cover;">
+    </td>
+    <td style="text-align: center;">
+      <img src="./resource/박지원.png" width="150px" height="150px" style="object-fit: cover;">
+    </td>
+  </tr>
+  <tr>
+    <td style="text-align: center; word-wrap: break-word;">윤대영</td>
+    <td style="text-align: center; word-wrap: break-word;">임경태</td>
+    <td style="text-align: center; word-wrap: break-word;">박지원</td>
+  </tr>
+  <tr>
+    <td style="text-align: center; word-wrap: break-word;">Frontend</td>
+    <td style="text-align: center; word-wrap: break-word;">Frontend</td>
+    <td style="text-align: center; word-wrap: break-word;">Frontend</td>
+  </tr>
+  <tr>
+    <td style="text-align: center; word-wrap: break-word;"></td>
+    <td style="text-align: center; word-wrap: break-word;">▪ 화면 구조 설계 및 네비게이터 구현<br>▪ OAuth 및 회원 관련 기능<br>▪ 산책 기능 및 위치 전송 웹 소켓<br>▪ React-query 사용 및 화면 렌더 성능 향상<br>▪ 앱 테마 디자인 및 퍼블리싱<br></td>
+    <td style="text-align: center; word-wrap: break-word;"></td>
+  </tr>
+</table>
